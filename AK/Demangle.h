@@ -11,6 +11,10 @@
 
 #ifndef AK_OS_WINDOWS
 #    include <cxxabi.h>
+#else
+#    include <Dbghelp.h>
+#    include <windows.h>
+#    pragma comment(lib, "Dbghelp.lib")
 #endif
 
 namespace AK {
@@ -28,8 +32,17 @@ inline ByteString demangle(StringView name)
 #else
 inline ByteString demangle(StringView name)
 {
-    // FIXME: Implement AK::demangle on Windows
-    return name;
+    // Buffer to hold the demangled name
+    char buffer[1024] = {};
+
+    // UNDNAME_COMPLETE asks for the full decoration (equivalent to g++’s default demangle)
+    auto charsWritten = UnDecorateSymbolName(
+        name.to_byte_string().characters(),
+        buffer,
+        sizeof(buffer),
+        UNDNAME_COMPLETE);
+
+    return ByteString(charsWritten > 0 ? StringView { buffer, static_cast<size_t>(charsWritten) } : name);
 }
 #endif
 
