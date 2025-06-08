@@ -68,19 +68,19 @@ TEST_CASE(parse_time_zone_name)
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Europe/Paris"sv, 2023, 01, 23, 9, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Australia/Perth"sv, 2023, 01, 23, 2, 50);
 
-    guard.update("America/New_York"sv);
+    guard.update("EST5"sv);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 UTC"sv, 2023, 01, 23, 5, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 America/New_York"sv, 2023, 01, 23, 10, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Europe/Paris"sv, 2023, 01, 23, 4, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Australia/Perth"sv, 2023, 01, 22, 21, 50);
 
-    guard.update("Europe/Paris"sv);
+    guard.update("CET-1"sv);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 UTC"sv, 2023, 01, 23, 11, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 America/New_York"sv, 2023, 01, 23, 16, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Europe/Paris"sv, 2023, 01, 23, 10, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Australia/Perth"sv, 2023, 01, 23, 3, 50);
 
-    guard.update("Australia/Perth"sv);
+    guard.update("EST-8"sv);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 UTC"sv, 2023, 01, 23, 18, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 America/New_York"sv, 2023, 01, 23, 23, 50);
     test("%Y/%m/%d %R %Z"sv, "2023/01/23 10:50 Europe/Paris"sv, 2023, 01, 23, 17, 50);
